@@ -6,7 +6,7 @@ from domain.values.base import BaseValue
 from domain.exceptions.books import EmptyTextException, InvalidYearException, \
     TitleTooLongException, InvalidStatusException
 
-from config import TEXT_MAX_LENGTH
+from config import TITLE_MAX_LENGTH
 
 
 @dataclass(frozen=True)
@@ -14,7 +14,7 @@ class Year(BaseValue):
     value: int
 
     def validate(self):
-        if self.value > datetime.now().year:
+        if int(self.value) > datetime.now().year:
             raise InvalidYearException(self.value)
 
     def as_generic_type(self):
@@ -50,7 +50,7 @@ class Title(Text):
     def validate(self):
         super().validate()
 
-        if len(self.value) > TEXT_MAX_LENGTH:
+        if len(self.value) > TITLE_MAX_LENGTH:
             raise TitleTooLongException(self.value)
         
 

@@ -1,7 +1,11 @@
+import sys
+
 from domain.exceptions.base import ApplicationException
 from tools.commands import Command
 from tools.services import greetings
 from router.router import router
+
+sys.path.insert(0, "app/")
 
 
 def main():

@@ -5,7 +5,7 @@ from tools.exceptions.commands import EmptyCommandException, UnknownCommandExcep
 
 @dataclass
 class Command:
-    __allowed_commands = ["get", "all", "post", "delete", "status", "help", "exit"]
+    __allowed_commands = ["get", "all", "add", "delete", "status", "help", "exit"]
     value: str
 
     def __post_init__(self):
@@ -15,7 +15,7 @@ class Command:
         if not self.value:
             raise EmptyCommandException()
         
-        self.value = self.value.lower()
+        self.value = self.value.lower().strip()
         if self.value not in self.__allowed_commands:
             raise UnknownCommandException(self.value)
 

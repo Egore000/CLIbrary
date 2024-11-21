@@ -1,11 +1,12 @@
+from api.endpoints import add_book, get_book, get_all_books, help, delete_book, change_status
 
 
 router = {
-    "get": lambda: 1,
-    "all": lambda: 2,
-    "post": lambda: 3,
-    "delete": lambda: 4,
-    "status": lambda: 5,
-    "help": lambda: 6,
+    "get": get_book,
+    "all": get_all_books,
+    "add": add_book,
+    "delete": delete_book,
+    "status": change_status,
+    "help": help,
     "exit": exit,
 }
