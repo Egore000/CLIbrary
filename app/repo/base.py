@@ -2,8 +2,6 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import TypeVar
 
-from db.readers.base import BaseReader
-from db.writers.base import BaseWriter
 from domain.entities.base import Entity
 
 
@@ -12,6 +10,7 @@ T = TypeVar("T", bound=Entity)
 
 @dataclass
 class BaseRepository(ABC):
+    """Абстрактный репозиторий для работы с данными"""
 
     @abstractmethod
     def add(self, item: T):
@@ -21,6 +20,10 @@ class BaseRepository(ABC):
     def get(self, **kwargs) -> T:
         ...
 
+    @abstractmethod
+    def filter(self, **kwargs) -> list[T]:
+        ...
+        
     @abstractmethod
     def get_all(self) -> list[T]:
         ...

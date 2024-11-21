@@ -1,4 +1,5 @@
-from api.endpoints import add_book, get_book, get_all_books, help, delete_book, change_status
+from api.endpoints import add_book, get_book, get_all_books, \
+    help, delete_book, change_status
 
 
 router = {

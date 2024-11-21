@@ -11,8 +11,15 @@ Data = TypeVar("Data", bound=dict)
 
 
 class JSONReader(BaseReader):
+    """Менеджер для чтения данных из JSON-файла"""
 
     def read(self, path: Path = JSON_FILE) -> Data:
+        """Чтение данных из файла
+        
+        :param Path path: Путь к файлу
+
+        :return: Данные
+        """
         if os.path.exists(path):
             with open(path, "r", encoding="UTF-8") as file:
                 return json.load(file)

@@ -5,6 +5,7 @@ from tools.exceptions.commands import EmptyCommandException, UnknownCommandExcep
 
 @dataclass
 class Command:
+    """Команда в терминале"""
     __allowed_commands = ["get", "all", "add", "delete", "status", "help", "exit"]
     value: str
 

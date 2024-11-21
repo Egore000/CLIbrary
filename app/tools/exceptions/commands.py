@@ -17,3 +17,10 @@ class UnknownCommandException(ApplicationException):
     @property
     def message(self):
         return f"Неизвестная команда: {self.command}"
+
+
+@dataclass(eq=False)
+class InvalidSearchModeException(ApplicationException):
+    @property
+    def message(self):
+        return "Неверный режим поиска"

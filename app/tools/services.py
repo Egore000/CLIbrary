@@ -1,16 +1,13 @@
-from dataclasses import dataclass
-from db.readers.base import BaseReader
-from db.readers.readers import JSONReader
-from db.writers.base import BaseWriter
-from db.writers.writers import JSONWriter
 from domain.entities.books import Book
 
-from domain.values.books import Status
-from repo.books import Library
-from tools.inputters.books import AuthorInputter, StatusInputter, TitleInputter, YearInputter 
+from domain.values.books import Author, Title, Year
+from db.init import library
+from tools.exceptions.commands import InvalidSearchModeException
 
 
 def greetings():
+    """Приветственное сообщение при входе в терминал программы"""
+
     print("""
             <<<     CLIbrary    >>>
     
@@ -26,50 +23,68 @@ def greetings():
     
 
 def input_book_data() -> Book:
-    """Ввод параметров книги"""
+    """Ввод параметров книги и создание объекта книги
+    
+    :return: Книга с введенными параметрами
+    :rtype: Book
 
-    title = TitleInputter.input()
-    author = AuthorInputter.input()
-    year = YearInputter.input()
-    status = StatusInputter.input()
+    :raises TitleTooLongException: Введено слишком длинное название
+    :raises EmptyTextException: Введен пустой текст
+    :raises InvalidYearException: Введено неверное значение года
+    :raises InvalidStatusException: Введен неверный статус
+    """
+
+    title = input(">> Название: ")
+    author = input(">> Автор: ")
+    year = int(input(">> Год: "))
+    status = input(">> Статус: ")
 
     return Book(title=title, author=author, year=year, status=status)
 
 
-@dataclass
-class LibraryService:
-    library: Library
-    writer: BaseWriter
-    reader: BaseReader
-
-    def __post_init__(self):
-        self.library.books = self.deserialize()
-
-    def add(self, book: Book):
-        self.library.add(book)
-        self.save()
-
-    def get(self, **kwargs) -> Book: 
-        return self.library.get(**kwargs)
+def find_book() -> Book | None:
+    """Поиск книги с выбором режима поиска 
+    по ID, по названию, по автору или по году.
     
-    def get_all(self) -> list[Book]:
-        return self.library.get_all()
-    
-    def delete(self, id: str):
-        self.library.delete(id=id)
-        self.save()
+    :return: Найденная книга
+    :rtype: Book or None
 
-    def change_status(self, id: str, status: Status):
-        self.library.change_status(id, status)
-        self.save()
+    :raises InvalidSearchModeException: Выбран неверный режим поиска 
+    """
 
-    def save(self):
-        books = self.library.serialize()
-        self.writer.write(books)
-    
-    def deserialize(self):
-        return {book["id"]: Book(**book) for book in self.reader.read()}
+    mode = input(
+"""
+>> Выберите режим поиска:  
+    1. По ID
+    2. По названию
+    3. По автору
+    4. По году                  
+>> """)
 
+    match mode:
+        case "1": 
+            id = input(">> Введите ID: ")
+            book = library.get(id=id)
 
+        case "2": 
+            title = Title(input(">> Введите название: "))
+            book = library.get(title=title)
 
-library = LibraryService(Library(), JSONWriter(), JSONReader())
+        case "3": 
+            author = Author(input(">> Введите автора: "))
+            book = library.filter(author=author)
+            
+            if book:
+                book = book[0]
+
+        case "4": 
+            year = Year(int(input(">> Введите год: ")))
+            book = library.filter(year=year)
+            
+            if book:
+                book = book[0]
+
+        case _:
+            raise InvalidSearchModeException 
+        
+    return book
