@@ -19,8 +19,9 @@ class Message:
 3) {Color.green}add{Color.reset} - добавить книгу.
 4) {Color.green}delete{Color.reset} - удалить книгу.
 5) {Color.green}status{Color.reset} - изменить статус книги.
-6) {Color.yellow}help{Color.reset} - справка.
-7) {Color.red}exit{Color.reset} - выход.
+6) {Color.blue}clear{Color.reset} - очистка командной строки.
+7) {Color.yellow}help{Color.reset} - справка.
+8) {Color.red}exit{Color.reset} - выход.
 """
 
     id: str = f">> {Color.green}ID{Color.reset}: "
@@ -35,8 +36,9 @@ class Message:
 3) {Color.green}add{Color.reset} - добавить книгу.
 4) {Color.green}delete{Color.reset} - удалить книгу.
 5) {Color.green}status{Color.reset} - изменить статус книги.
-6) {Color.yellow}help{Color.reset} - справка.
-7) {Color.red}exit{Color.reset} - выход.
+6) {Color.blue}clear{Color.reset} - очистка командной строки.
+7) {Color.yellow}help{Color.reset} - справка.
+8) {Color.red}exit{Color.reset} - выход.
 """
     mode: str =  f"""
 >> Выберите режим поиска:  

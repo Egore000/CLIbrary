@@ -1,4 +1,4 @@
-from api.endpoints import (add_book, change_status, delete_book, get_all_books,
+from api.endpoints import (add_book, change_status, clear, delete_book, get_all_books,
                            get_book, help)
 
 router = {
@@ -8,5 +8,6 @@ router = {
     "delete": delete_book,
     "status": change_status,
     "help": help,
+    "clear": clear,
     "exit": exit,
 }

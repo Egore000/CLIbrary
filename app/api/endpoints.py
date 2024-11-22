@@ -1,5 +1,7 @@
 # Эндпоинты для взаимодействия с приложением
 
+import os
+
 from domain.values.books import Status
 from repo.exceptions.books import ObjectNotFoundException
 from tools.messages import Message
@@ -49,3 +51,7 @@ def change_status():
 def help():
     """Помощь с работой приложения"""
     print(Message.help)
+
+def clear():
+    """Очистка командной строки"""
+    os.system("cls")

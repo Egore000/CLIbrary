@@ -8,7 +8,7 @@ from tools.exceptions.commands import (EmptyCommandException,
 class Command:
     """Команда в терминале"""
 
-    __allowed_commands = ["get", "all", "add", "delete", "status", "help", "exit"]
+    __allowed_commands = ["get", "all", "add", "delete", "status", "help", "clear", "exit"]
     value: str
 
     def __post_init__(self):
