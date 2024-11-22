@@ -1,5 +1,5 @@
-from dataclasses import dataclass
 import json
+from dataclasses import dataclass
 from pathlib import Path
 from typing import TypeVar
 
@@ -12,7 +12,7 @@ Data = TypeVar("Data", bound=dict)
 @dataclass
 class JSONWriter(BaseWriter):
     """Менеджер для записи данных в JSON-файл
-    
+
     :param Path path: Путь к файлу
     """
 

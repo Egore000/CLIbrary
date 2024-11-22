@@ -4,7 +4,7 @@ from domain.exceptions.books import InvalidInputException
 from domain.values.base import BaseValue
 from domain.values.books import Author, Status, Title, Year
 from tools.exceptions.commands import InvalidSearchModeException
-from tools.messages import Message 
+from tools.messages import Message
 
 
 def greetings():
@@ -14,15 +14,15 @@ def greetings():
 
 
 def input_value(VT: BaseValue) -> BaseValue:
-    """Повторяющийся ввод параметра до тех пор, пока не 
+    """Повторяющийся ввод параметра до тех пор, пока не
     будет введено корректное значение
-    
+
     :param BaseValue VT: Тип вводимого значения
 
     :return: Корректно введенное значение
     :rtype: BaseValue
     """
-    
+
     value: BaseValue = None
     msg = getattr(Message, VT.__name__.lower())
     while not value:

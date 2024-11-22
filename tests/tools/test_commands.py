@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from tools.commands import Command, AllowedCommands
+from tools.commands import AllowedCommands, Command
 
 
 class TestCommand(TestCase):

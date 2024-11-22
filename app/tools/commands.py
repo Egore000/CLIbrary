@@ -1,8 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 
-from tools.exceptions.commands import (EmptyCommandException,
-                                       UnknownCommandException)
+from tools.exceptions.commands import EmptyCommandException, UnknownCommandException
 
 
 class AllowedCommands(Enum):

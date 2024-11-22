@@ -6,7 +6,7 @@ from tools.colors import Color
 @dataclass
 class Message:
     """Сообщения в терминале
-    
+
     Добавление цвета - исключительно в качестве эксперимента =)
     """
 
@@ -40,14 +40,14 @@ class Message:
 7) {Color.yellow}help{Color.reset} - справка.
 8) {Color.red}exit{Color.reset} - выход.
 """
-    mode: str =  f"""
+    mode: str = f"""
 >> Выберите режим поиска:  
     1. По {Color.green}ID{Color.reset}
     2. По {Color.green}названию{Color.reset}
     3. По {Color.green}автору{Color.reset}
     4. По {Color.green}году{Color.reset}                  
 >> """
-    
+
     added: str = f"Книга добавлена: {Color.green}ID{Color.reset} = "
     deleted: str = f"Книга успешно {Color.blue}удалена{Color.reset}"
 

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from abc import ABC
 from dataclasses import dataclass
+
 from tools.colors import Color
 
 
@@ -17,12 +18,14 @@ class Entity(ABC):
             else:
                 result[key] = value
         return result
-    
+
     def human_readable(self) -> str:
         result = ""
         for key, value in self.__dict__.items():
             if hasattr(value, "as_generic_type"):
-                result += f"{Color.green}{key}{Color.reset}: {value.as_generic_type()}\n"
+                result += (
+                    f"{Color.green}{key}{Color.reset}: {value.as_generic_type()}\n"
+                )
             else:
                 result += f"{Color.green}{key}{Color.reset}: {value}\n"
         return result

@@ -5,7 +5,7 @@ from domain.values.books import Author, Status, StatusValue, Title, Year
 
 
 class TestBook(TestCase):
-    
+
     def test_create_book(self):
         title = Title("Title")
         author = Author("Author")
@@ -19,5 +19,3 @@ class TestBook(TestCase):
         self.assertEqual(book.year, year)
         self.assertEqual(book.status, status)
         self.assertIsInstance(book.id, str)
-
-

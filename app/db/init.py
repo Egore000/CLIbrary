@@ -133,7 +133,7 @@ class LibraryService:
 
     def exists(self, id: str) -> bool:
         """Проверка наличия объекта с id в БД
-        
+
         :param str id: ID книги
 
         :return: Существует ли объект с данным ID в хранилише

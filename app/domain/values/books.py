@@ -5,10 +5,12 @@ from datetime import datetime
 from enum import Enum
 
 from config import TITLE_MAX_LENGTH
-from domain.exceptions.books import (EmptyTextException,
-                                     InvalidStatusException,
-                                     InvalidYearException,
-                                     TitleTooLongException)
+from domain.exceptions.books import (
+    EmptyTextException,
+    InvalidStatusException,
+    InvalidYearException,
+    TitleTooLongException,
+)
 from domain.values.base import BaseValue
 
 
@@ -69,4 +71,3 @@ class Title(Text):
 
 @dataclass
 class Author(Text): ...
-

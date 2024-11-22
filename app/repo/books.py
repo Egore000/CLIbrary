@@ -72,7 +72,7 @@ class Library(BaseRepository):
         if not self.exists(id):
             raise ObjectNotFoundException
         self.books.pop(id)
-        
+
     def change_status(self, id: str, status: Status) -> Book:
         """Изменение статуса задачи
 
@@ -85,7 +85,7 @@ class Library(BaseRepository):
         :raises ObjectNotFoundException: Книга не найдена
         """
         book = self.books.get(id)
-        
+
         if not book:
             raise ObjectNotFoundException
         book.status = status
@@ -136,7 +136,7 @@ class Library(BaseRepository):
 
     def exists(self, id: str) -> bool:
         """Проверка наличия объекта с id в БД
-        
+
         :param str id: ID книги
 
         :return: Существует ли объект с данным ID в хранилише

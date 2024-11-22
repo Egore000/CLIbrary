@@ -9,7 +9,7 @@ class InvalidInputException(ApplicationException):
     @property
     def message(self):
         return "Некорректный ввод"
-    
+
 
 @dataclass(eq=False)
 class TitleTooLongException(InvalidInputException):

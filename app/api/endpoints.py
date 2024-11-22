@@ -55,6 +55,7 @@ def help():
     """Помощь с работой приложения"""
     print(Message.help)
 
+
 def clear():
     """Очистка командной строки"""
     os.system("cls")

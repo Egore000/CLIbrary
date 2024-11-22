@@ -1,6 +1,6 @@
-from dataclasses import dataclass
 import json
 import os
+from dataclasses import dataclass
 from pathlib import Path
 from typing import TypeVar
 
@@ -12,7 +12,7 @@ Data = TypeVar("Data", bound=dict)
 @dataclass
 class JSONReader(BaseReader):
     """Менеджер для чтения данных из JSON-файла
-    
+
     :param Path path: Путь к файлу для чтения
     """
 
