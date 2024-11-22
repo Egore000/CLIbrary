@@ -1,7 +1,6 @@
-from dataclasses import dataclass
 from abc import ABC, abstractmethod
-from typing import Generic, Any, TypeVar
-
+from dataclasses import dataclass
+from typing import Any, Generic, TypeVar
 
 T = TypeVar("T", bound=Any)
 
@@ -14,9 +13,7 @@ class BaseValue(ABC, Generic[T]):
         self.validate()
 
     @abstractmethod
-    def validate(self):
-        ...
+    def validate(self): ...
 
     @abstractmethod
-    def as_generic_type(self) -> T:
-        ...
+    def as_generic_type(self) -> T: ...

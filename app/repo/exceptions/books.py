@@ -8,4 +8,3 @@ class ObjectNotFoundException(ApplicationException):
     @property
     def message(self):
         return f"Объект не найден"
-    

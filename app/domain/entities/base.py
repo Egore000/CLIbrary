@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import dataclass
 from abc import ABC
+from dataclasses import dataclass
 
 
 @dataclass
@@ -14,11 +14,11 @@ class Entity(ABC):
             if hasattr(value, "as_generic_type"):
                 result[key] = value.as_generic_type()
             else:
-                result[key] = value 
+                result[key] = value
         return result
 
     def __hash__(self) -> int:
         return hash(self.id)
-    
+
     def __eq__(self, value: Entity) -> bool:
         return self.id == value.id

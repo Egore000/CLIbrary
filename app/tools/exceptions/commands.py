@@ -8,7 +8,7 @@ class EmptyCommandException(ApplicationException):
     @property
     def message(self):
         return "Команда не введена"
-    
+
 
 @dataclass(eq=False)
 class UnknownCommandException(ApplicationException):

@@ -1,14 +1,15 @@
 from __future__ import annotations
 
-from datetime import datetime
 from dataclasses import dataclass
-from typing import Literal 
-
-from domain.values.base import BaseValue 
-from domain.exceptions.books import EmptyTextException, InvalidYearException, \
-    TitleTooLongException, InvalidStatusException
+from datetime import datetime
+from typing import Literal
 
 from config import TITLE_MAX_LENGTH
+from domain.exceptions.books import (EmptyTextException,
+                                     InvalidStatusException,
+                                     InvalidYearException,
+                                     TitleTooLongException)
+from domain.values.base import BaseValue
 
 
 @dataclass(frozen=True)
@@ -42,10 +43,10 @@ class Text(BaseValue):
     def validate(self):
         if not self.value:
             raise EmptyTextException()
-        
+
     def as_generic_type(self):
         return str(self.value)
-        
+
 
 @dataclass(frozen=True)
 class Title(Text):
@@ -54,11 +55,9 @@ class Title(Text):
 
         if len(self.value) > TITLE_MAX_LENGTH:
             raise TitleTooLongException(self.value)
-        
+
 
 @dataclass(frozen=True)
 class Author(Text):
     def validate(self):
         super().validate()
-        self.value.title()
-    

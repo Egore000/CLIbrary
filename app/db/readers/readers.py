@@ -6,7 +6,6 @@ from typing import TypeVar
 from config import JSON_FILE
 from db.readers.base import BaseReader
 
-
 Data = TypeVar("Data", bound=dict)
 
 
@@ -15,7 +14,7 @@ class JSONReader(BaseReader):
 
     def read(self, path: Path = JSON_FILE) -> Data:
         """Чтение данных из файла
-        
+
         :param Path path: Путь к файлу
 
         :return: Данные
