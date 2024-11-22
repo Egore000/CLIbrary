@@ -1,11 +1,15 @@
 from unittest import TestCase
 
+import config
+from db.readers.readers import JSONReader
+from db.writers.writers import JSONWriter
 from domain.entities.books import Book
-from domain.exceptions.books import InvalidInputException
 from domain.values.books import Author, Status, Title, Year
+from repo.books import Library
 from tools import services
 from tools.exceptions.commands import InvalidSearchModeException
-from tools.services import input_value, input_book_data, find_book
+from tools.services import input_value, input_book_data, find_books
+from db import init
 
 
 table = [
@@ -29,6 +33,16 @@ class SimulatedInput:
 
 
 class TestServices(TestCase):
+
+    def setUp(self):
+        self.JSON_FILE = config.JSON_FILE
+        config.JSON_FILE = config.BASE_DIR / "data" / "test_library.json"
+        init.library = init.LibraryService(
+            Library(), 
+            JSONWriter(config.JSON_FILE), 
+            JSONReader(config.JSON_FILE)
+        )
+        return super().setUp()
 
     def test_input_value(self):
         for VT, *_, value in table:
@@ -71,9 +85,10 @@ class TestServices(TestCase):
             with self.subTest(f"Mode: {mode}, value: {value}"):
                 services.input = SimulatedInput(mode, value)
 
-                book = find_book()
+                books = find_books()
+                self.assertIsInstance(books, list) 
 
-                self.assertIsInstance(book, Book) 
+                book = books[0]
                 self.assertEqual(book.id, "ecee3364-3546-4035-b3ff-054ff7077c3c")
                 self.assertEqual(book.title.value, "Преступление и наказание")
                 self.assertEqual(book.author.value, "Ф.М. Достоевский")
@@ -90,9 +105,15 @@ class TestServices(TestCase):
             with self.subTest(f"Mode: {mode}, value: {value}"):
                 with self.assertRaises(InvalidSearchModeException):
                     services.input = SimulatedInput(mode, value)
-                    book = find_book()
+                    book = find_books()
                 
     def tearDown(self):
         services.input = input
+        config.JSON_FILE = self.JSON_FILE
+        init.library = init.LibraryService(
+            Library(), 
+            JSONWriter(self.JSON_FILE), 
+            JSONReader(self.JSON_FILE)
+        )
         return super().tearDown()
     

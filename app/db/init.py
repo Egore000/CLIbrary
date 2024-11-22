@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+from config import JSON_FILE
 from db.readers.base import BaseReader
 from db.readers.readers import JSONReader
 from db.writers.base import BaseWriter
@@ -142,4 +143,4 @@ class LibraryService:
         return self.library.exists(id)
 
 
-library = LibraryService(Library(), JSONWriter(), JSONReader())
+library = LibraryService(Library(), JSONWriter(JSON_FILE), JSONReader(JSON_FILE))
