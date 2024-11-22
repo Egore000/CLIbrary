@@ -12,11 +12,16 @@ from domain.exceptions.books import (EmptyTextException,
 from domain.values.base import BaseValue
 
 
-@dataclass(frozen=True)
+@dataclass
 class Year(BaseValue):
     value: int
 
     def validate(self):
+        try:
+            self.value = int(self.value)
+        except (TypeError, ValueError):
+            raise InvalidYearException(self.value)
+
         if int(self.value) > datetime.now().year:
             raise InvalidYearException(self.value)
 
@@ -24,7 +29,7 @@ class Year(BaseValue):
         return int(self.value)
 
 
-@dataclass(frozen=True)
+@dataclass
 class Status(BaseValue):
     value: Literal["В наличии", "Выдана"]
 
@@ -36,7 +41,7 @@ class Status(BaseValue):
         return str(self.value)
 
 
-@dataclass(frozen=True)
+@dataclass
 class Text(BaseValue):
     value: str
 
@@ -48,7 +53,7 @@ class Text(BaseValue):
         return str(self.value)
 
 
-@dataclass(frozen=True)
+@dataclass
 class Title(Text):
     def validate(self):
         super().validate()
@@ -57,7 +62,7 @@ class Title(Text):
             raise TitleTooLongException(self.value)
 
 
-@dataclass(frozen=True)
+@dataclass
 class Author(Text):
     def validate(self):
         super().validate()

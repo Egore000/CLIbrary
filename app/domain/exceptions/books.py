@@ -5,34 +5,41 @@ from domain.exceptions.base import ApplicationException
 
 
 @dataclass(eq=False)
-class TitleTooLongException(ApplicationException):
+class InvalidInputException(ApplicationException):
+    @property
+    def message(self):
+        return "Некорректный ввод"
+    
+
+@dataclass(eq=False)
+class TitleTooLongException(InvalidInputException):
     text: str
 
     @property
     def message(self):
-        return f"Слишком длинное название: {self.text[:TITLE_MAX_LENGTH]}..."
+        return f"Слишком длинное название: {self.text[:TITLE_MAX_LENGTH]!r}..."
 
 
 @dataclass(eq=False)
-class EmptyTextException(ApplicationException):
+class EmptyTextException(InvalidInputException):
     @property
     def message(self):
         return "Текст не может быть пустым"
 
 
 @dataclass(eq=False)
-class InvalidYearException(ApplicationException):
+class InvalidYearException(InvalidInputException):
     year: int
 
     @property
     def message(self):
-        return f"Неверное значение года: {self.year}"
+        return f"Неверное значение года: {self.year!r}"
 
 
 @dataclass(eq=False)
-class InvalidStatusException(ApplicationException):
+class InvalidStatusException(InvalidInputException):
     status: str
 
     @property
     def message(self):
-        return f"Введен неверный статус: {self.status}"
+        return f"Введен неверный статус: {self.status!r}"

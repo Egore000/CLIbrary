@@ -1,6 +1,8 @@
 from db.init import library
 from domain.entities.books import Book
-from domain.values.books import Author, Title, Year
+from domain.exceptions.books import InvalidInputException
+from domain.values.base import BaseValue
+from domain.values.books import Author, Status, Title, Year
 from tools.exceptions.commands import InvalidSearchModeException
 from tools.messages import Message 
 
@@ -11,22 +13,37 @@ def greetings():
     print(Message.greeting)
 
 
+def input_value(VT: BaseValue) -> BaseValue:
+    """Повторяющийся ввод параметра до тех пор, пока не 
+    будет введено корректное значение
+    
+    :param BaseValue VT: Тип вводимого значения
+
+    :return: Корректно введенное значение
+    :rtype: BaseValue
+    """
+    
+    value: BaseValue = None
+    msg = getattr(Message, VT.__name__.lower())
+    while not value:
+        try:
+            value = VT(input(msg))
+        except InvalidInputException as exception:
+            print(Message.error, exception.message)
+    return value
+
+
 def input_book_data() -> Book:
     """Ввод параметров книги и создание объекта книги
 
     :return: Книга с введенными параметрами
     :rtype: Book
-
-    :raises TitleTooLongException: Введено слишком длинное название
-    :raises EmptyTextException: Введен пустой текст
-    :raises InvalidYearException: Введено неверное значение года
-    :raises InvalidStatusException: Введен неверный статус
     """
 
-    title = input(Message.title)
-    author = input(Message.author)
-    year = int(input(Message.year))
-    status = input(Message.status)
+    title = input_value(Title)
+    author = input_value(Author)
+    year = input_value(Year)
+    status = input_value(Status)
 
     return Book(title=title, author=author, year=year, status=status)
 

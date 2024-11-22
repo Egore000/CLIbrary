@@ -1,7 +1,5 @@
 # Эндпоинты для взаимодействия с приложением
 
-from pprint import pprint
-
 from domain.values.books import Status
 from repo.exceptions.books import ObjectNotFoundException
 from tools.messages import Message
@@ -19,14 +17,16 @@ def get_book():
     """Поиск книги по заданным параметрам"""
     book = find_book()
     try:
-        pprint(book.as_dict(), indent=4, depth=2, sort_dicts=False)
+        print(book.human_readable())
     except (TypeError, AttributeError):
-        pprint([item.as_dict() for item in book], indent=4, depth=2, sort_dicts=False)
+        print([item.human_readable() for item in book])
 
 
 def get_all_books():
     """Вывод всех книг, хранящихся в БД"""
-    pprint(library.get_all(), indent=4, depth=2, sort_dicts=False)
+    books = library.get_all()
+    for book in books:
+        print(book.human_readable())
 
 
 def delete_book():

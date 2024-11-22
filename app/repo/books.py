@@ -56,10 +56,11 @@ class Library(BaseRepository):
         :return: Список книг
         :rtype: list[Book]
         """
-        result = []
-        for item in self.books.values():
-            result.append(item.as_dict())
-        return result
+        # result = []
+        # for item in self.books.values():
+        #     result.append(item)
+        # return result
+        return list(self.books.values())
 
     def delete(self, id: str):
         """Удаление книги по ID
@@ -72,7 +73,6 @@ class Library(BaseRepository):
             raise ObjectNotFoundException
         self.books.pop(id)
         
-
     def change_status(self, id: str, status: Status) -> Book:
         """Изменение статуса задачи
 

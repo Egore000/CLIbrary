@@ -5,7 +5,7 @@ from typing import Any, Generic, TypeVar
 T = TypeVar("T", bound=Any)
 
 
-@dataclass(frozen=True)
+@dataclass
 class BaseValue(ABC, Generic[T]):
     value: T
 
