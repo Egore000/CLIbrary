@@ -3,6 +3,8 @@
 from pprint import pprint
 
 from domain.values.books import Status
+from repo.exceptions.books import ObjectNotFoundException
+from tools.messages import Message
 from tools.services import find_book, input_book_data, library
 
 
@@ -10,7 +12,7 @@ def add_book():
     """Добавление книги"""
     book = input_book_data()
     library.add(book)
-    print(f"Книга добавлена: ID = {book.id}")
+    print(Message.added, book.id)
 
 
 def get_book():
@@ -29,27 +31,21 @@ def get_all_books():
 
 def delete_book():
     """Удаление книги"""
-    id = input(">> Введите ID: ")
+    id = input(Message.id)
     library.delete(id)
+    print(Message.deleted)
 
 
 def change_status():
     """Изменение статуса книги"""
-    id = input(">> ID: ")
-    status = Status(input(">> Статус: "))
-    library.change_status(id=id, status=status)
+    id = input(Message.id)
 
+    if library.exists(id):
+        status = Status(input(Message.status))
+        library.change_status(id=id, status=status)
+    else:
+        raise ObjectNotFoundException
 
 def help():
     """Помощь с работой приложения"""
-    print(
-        """
-1) get - найти нужную книгу по названию, автору или году.
-2) all - вывести все имеющиeся книги.
-3) add - добавить книгу.
-4) delete - удалить книгу.
-5) status - изменить статус книги.
-6) help - справка.
-7) exit - выход.
-"""
-    )
+    print(Message.help)

@@ -65,8 +65,13 @@ class Library(BaseRepository):
         """Удаление книги по ID
 
         :param str id: ID книги
+
+        :raises ObjectNotFoundException: Книга не найдена
         """
+        if not self.exists(id):
+            raise ObjectNotFoundException
         self.books.pop(id)
+        
 
     def change_status(self, id: str, status: Status) -> Book:
         """Изменение статуса задачи
@@ -76,8 +81,13 @@ class Library(BaseRepository):
 
         :return: Книга с измененным статусом
         :rtype: Book
+
+        :raises ObjectNotFoundException: Книга не найдена
         """
         book = self.books.get(id)
+        
+        if not book:
+            raise ObjectNotFoundException
         book.status = status
         return book
 
@@ -123,3 +133,14 @@ class Library(BaseRepository):
     def serialize(self):
         """Сериализатор для представления данных в формате JSON"""
         return [item.as_dict() for item in self.books.values()]
+
+    def exists(self, id: str) -> bool:
+        """Проверка наличия объекта с id в БД
+        
+        :param str id: ID книги
+
+        :return: Существует ли объект с данным ID в хранилише
+        :rtype: bool
+        """
+
+        return id in self.books.keys()

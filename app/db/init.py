@@ -130,5 +130,16 @@ class LibraryService:
             for book in self.reader.read()
         }
 
+    def exists(self, id: str) -> bool:
+        """Проверка наличия объекта с id в БД
+        
+        :param str id: ID книги
+
+        :return: Существует ли объект с данным ID в хранилише
+        :rtype: bool
+        """
+
+        return self.library.exists(id)
+
 
 library = LibraryService(Library(), JSONWriter(), JSONReader())
