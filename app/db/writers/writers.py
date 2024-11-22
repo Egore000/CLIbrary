@@ -1,4 +1,5 @@
 import json
+from dataclasses import dataclass
 from pathlib import Path
 from typing import TypeVar
 
@@ -8,14 +9,19 @@ from db.writers.base import BaseWriter
 Data = TypeVar("Data", bound=dict)
 
 
+@dataclass
 class JSONWriter(BaseWriter):
-    """Менеджер для записи данных в JSON-файл"""
+    """Менеджер для записи данных в JSON-файл
 
-    def write(self, data: Data, path: Path = JSON_FILE):
+    :param Path path: Путь к файлу
+    """
+
+    path: Path
+
+    def write(self, data: Data):
         """Запись данных в файл
 
         :param Data data: Данные для записи
-        :param Path path: Путь к файлу
         """
-        with open(path, "w", encoding="UTF-8") as file:
+        with open(self.path, "w", encoding="UTF-8") as file:
             json.dump(data, file, ensure_ascii=False, indent=4)

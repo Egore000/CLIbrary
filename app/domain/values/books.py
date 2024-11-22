@@ -2,13 +2,15 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Literal
+from enum import Enum
 
 from config import TITLE_MAX_LENGTH
-from domain.exceptions.books import (EmptyTextException,
-                                     InvalidStatusException,
-                                     InvalidYearException,
-                                     TitleTooLongException)
+from domain.exceptions.books import (
+    EmptyTextException,
+    InvalidStatusException,
+    InvalidYearException,
+    TitleTooLongException,
+)
 from domain.values.base import BaseValue
 
 
@@ -29,12 +31,17 @@ class Year(BaseValue):
         return int(self.value)
 
 
+class StatusValue(Enum):
+    available = "В наличии"
+    given = "Выдана"
+
+
 @dataclass
 class Status(BaseValue):
-    value: Literal["В наличии", "Выдана"]
+    value: StatusValue
 
     def validate(self):
-        if self.value not in ["В наличии", "Выдана"]:
+        if self.value not in StatusValue:
             raise InvalidStatusException(self.value)
 
     def as_generic_type(self):
@@ -63,6 +70,4 @@ class Title(Text):
 
 
 @dataclass
-class Author(Text):
-    def validate(self):
-        super().validate()
+class Author(Text): ...

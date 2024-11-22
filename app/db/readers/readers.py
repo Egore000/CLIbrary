@@ -1,26 +1,30 @@
 import json
 import os
+from dataclasses import dataclass
 from pathlib import Path
 from typing import TypeVar
 
-from config import JSON_FILE
 from db.readers.base import BaseReader
 
 Data = TypeVar("Data", bound=dict)
 
 
+@dataclass
 class JSONReader(BaseReader):
-    """Менеджер для чтения данных из JSON-файла"""
+    """Менеджер для чтения данных из JSON-файла
 
-    def read(self, path: Path = JSON_FILE) -> Data:
+    :param Path path: Путь к файлу для чтения
+    """
+
+    path: Path
+
+    def read(self) -> Data:
         """Чтение данных из файла
-
-        :param Path path: Путь к файлу
 
         :return: Данные
         """
-        if os.path.exists(path):
-            with open(path, "r", encoding="UTF-8") as file:
+        if os.path.exists(self.path):
+            with open(self.path, "r", encoding="UTF-8") as file:
                 return json.load(file)
         else:
             return {}

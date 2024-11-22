@@ -1,15 +1,27 @@
 from dataclasses import dataclass
+from enum import Enum
 
-from tools.exceptions.commands import (EmptyCommandException,
-                                       UnknownCommandException)
+from tools.exceptions.commands import EmptyCommandException, UnknownCommandException
+
+
+class AllowedCommands(Enum):
+    """Разрешенные команды"""
+
+    GET = "get"
+    ALL = "all"
+    ADD = "add"
+    DELETE = "delete"
+    STATUS = "status"
+    HELP = "help"
+    CLEAR = "clear"
+    EXIT = "exit"
 
 
 @dataclass
 class Command:
     """Команда в терминале"""
 
-    __allowed_commands = ["get", "all", "add", "delete", "status", "help", "clear", "exit"]
-    value: str
+    value: AllowedCommands
 
     def __post_init__(self):
         self.validate()
@@ -19,5 +31,5 @@ class Command:
             raise EmptyCommandException()
 
         self.value = self.value.lower().strip()
-        if self.value not in self.__allowed_commands:
+        if self.value not in AllowedCommands:
             raise UnknownCommandException(self.value)

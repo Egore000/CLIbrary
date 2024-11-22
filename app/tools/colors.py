@@ -12,5 +12,3 @@ class Color:
     white: str = "\033[37m"
 
     reset: str = "\033[0m"
-
-    

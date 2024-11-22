@@ -4,7 +4,7 @@ from domain.exceptions.books import InvalidInputException
 from domain.values.base import BaseValue
 from domain.values.books import Author, Status, Title, Year
 from tools.exceptions.commands import InvalidSearchModeException
-from tools.messages import Message 
+from tools.messages import Message
 
 
 def greetings():
@@ -14,15 +14,15 @@ def greetings():
 
 
 def input_value(VT: BaseValue) -> BaseValue:
-    """Повторяющийся ввод параметра до тех пор, пока не 
+    """Повторяющийся ввод параметра до тех пор, пока не
     будет введено корректное значение
-    
+
     :param BaseValue VT: Тип вводимого значения
 
     :return: Корректно введенное значение
     :rtype: BaseValue
     """
-    
+
     value: BaseValue = None
     msg = getattr(Message, VT.__name__.lower())
     while not value:
@@ -48,12 +48,12 @@ def input_book_data() -> Book:
     return Book(title=title, author=author, year=year, status=status)
 
 
-def find_book() -> Book | None:
-    """Поиск книги с выбором режима поиска
+def find_books() -> list[Book]:
+    """Поиск книг с выбором режима поиска
     по ID, по названию, по автору или по году.
 
-    :return: Найденная книга
-    :rtype: Book or None
+    :return: Найденные книги
+    :rtype: list[Book]
 
     :raises InvalidSearchModeException: Выбран неверный режим поиска
     """
@@ -63,27 +63,21 @@ def find_book() -> Book | None:
     match mode:
         case "1":
             id = input(Message.id)
-            book = library.get(id=id)
+            books = [library.get(id=id)]
 
         case "2":
             title = Title(input(Message.title))
-            book = library.get(title=title)
+            books = [library.get(title=title)]
 
         case "3":
             author = Author(input(Message.author))
-            book = library.filter(author=author)
-
-            if book:
-                book = book[0]
+            books = library.filter(author=author)
 
         case "4":
             year = Year(int(input(Message.year)))
-            book = library.filter(year=year)
-
-            if book:
-                book = book[0]
+            books = library.filter(year=year)
 
         case _:
             raise InvalidSearchModeException
 
-    return book
+    return books
