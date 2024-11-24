@@ -13,4 +13,4 @@ class Book(Entity):
     title: Title
     author: Author
     year: Year
-    status: Status
+    status: Status = field(default_factory=lambda: Status("В наличии"))

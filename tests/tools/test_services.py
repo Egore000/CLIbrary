@@ -15,7 +15,6 @@ table = [
     (Title, "", "a" * 500, "Title"),
     (Author, "", 103, "Author"),
     (Year, 5000, "", "year", "5000", 2000),
-    (Status, 12, "", "status", "Выдана", "В наличии"),
 ]
 
 
@@ -52,7 +51,7 @@ class TestServices(TestCase):
                 self.assertEqual(result.value, value)
 
     def test_input_book_data(self):
-        services.input = SimulatedInput("Title", "Author", 2001, "Выдана")
+        services.input = SimulatedInput("Title", "Author", 2001)
 
         book = input_book_data()
 
@@ -68,7 +67,7 @@ class TestServices(TestCase):
         self.assertEqual(book.year.value, 2001)
 
         self.assertIsInstance(book.status, Status)
-        self.assertEqual(book.status.value, "Выдана")
+        self.assertEqual(book.status.value, "В наличии")
 
     def test_find_book_correct_data(self):
         cases = [

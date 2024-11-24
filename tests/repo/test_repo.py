@@ -22,7 +22,6 @@ class TestLibraryRepo(TestCase):
             title=Title("Title"),
             author=Author("Author"),
             year=Year(1995),
-            status=Status("В наличии"),
         )
         self.book_id = self.book.id
 
@@ -31,7 +30,6 @@ class TestLibraryRepo(TestCase):
                 Title(f"Book 1"),
                 Author(f"Author 1"),
                 Year(2000),
-                Status("В наличии"),
             ),
             Book(
                 Title(f"Book 2"),
@@ -43,7 +41,6 @@ class TestLibraryRepo(TestCase):
                 Title(f"Book 3"),
                 Author(f"Author 2"),
                 Year(2000),
-                Status("В наличии"),
             ),
             Book(
                 Title(f"Book 4"),
