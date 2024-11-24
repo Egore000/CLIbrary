@@ -56,10 +56,6 @@ class Library(BaseRepository):
         :return: Список книг
         :rtype: list[Book]
         """
-        # result = []
-        # for item in self.books.values():
-        #     result.append(item)
-        # return result
         return list(self.books.values())
 
     def delete(self, id: str):

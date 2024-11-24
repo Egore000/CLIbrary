@@ -44,11 +44,11 @@ def change_status():
     """Изменение статуса книги"""
     id = input(Message.id)
 
-    if library.exists(id):
-        status = Status(input(Message.status))
-        library.change_status(id=id, status=status)
-    else:
+    if not library.exists(id):
         raise ObjectNotFoundException
+
+    status = Status(input(Message.status))
+    library.change_status(id=id, status=status)
 
 
 def help():
