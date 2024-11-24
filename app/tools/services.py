@@ -43,9 +43,8 @@ def input_book_data() -> Book:
     title = input_value(Title)
     author = input_value(Author)
     year = input_value(Year)
-    status = input_value(Status)
 
-    return Book(title=title, author=author, year=year, status=status)
+    return Book(title=title, author=author, year=year)
 
 
 def find_books() -> list[Book]:

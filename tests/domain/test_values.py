@@ -1,12 +1,10 @@
 from unittest import TestCase
 
 from config import TITLE_MAX_LENGTH
-from domain.exceptions.books import (
-    EmptyTextException,
-    InvalidStatusException,
-    InvalidYearException,
-    TitleTooLongException,
-)
+from domain.exceptions.books import (EmptyTextException,
+                                     InvalidStatusException,
+                                     InvalidYearException,
+                                     TitleTooLongException)
 from domain.values.books import Author, Status, Text, Title, Year
 
 

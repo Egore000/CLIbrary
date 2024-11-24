@@ -3,7 +3,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import TypeVar
 
-from config import JSON_FILE
 from db.writers.base import BaseWriter
 
 Data = TypeVar("Data", bound=dict)

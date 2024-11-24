@@ -26,5 +26,4 @@ class JSONReader(BaseReader):
         if os.path.exists(self.path):
             with open(self.path, "r", encoding="UTF-8") as file:
                 return json.load(file)
-        else:
-            return {}
+        return {}

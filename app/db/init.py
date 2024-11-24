@@ -39,11 +39,11 @@ class LibraryService:
     def get(
         self,
         *,
-        id: str = None,
-        title: Title = None,
-        author: Author = None,
-        year: Year = None,
-        status: Status = None,
+        id: str | None = None,
+        title: Title | None = None,
+        author: Author | None = None,
+        year: Year | None = None,
+        status: Status | None = None,
     ) -> Book:
         """Получение книги по заданным параметрам
 
@@ -63,11 +63,11 @@ class LibraryService:
     def filter(
         self,
         *,
-        id: str = None,
-        title: Title = None,
-        author: Author = None,
-        year: Year = None,
-        status: Status = None,
+        id: str | None = None,
+        title: Title | None = None,
+        author: Author | None = None,
+        year: Year | None = None,
+        status: Status | None = None,
     ) -> list[Book]:
         """Получение списка книг по заданным параметрам
 
